@@ -1,5 +1,4 @@
-// src/api/MetricsPageClient.ts
-import { http } from "./http";
+import { http } from "../http";
 
 export interface Ema200Response {
   symbol: string;
@@ -20,7 +19,6 @@ export interface Ema21Response {
 }
 
 export type Slope = { deltaPerBar: number; pctPerBar: number; sign: "up" | "down" | "flat" };
-
 export interface Ema200SlopeResponse {
   symbol: string;
   ema200_slope: { "1h": Slope; "4h": Slope };
@@ -40,6 +38,29 @@ export interface HHHLResponse {
   prevHigh?: { price: number; time: string } | null;
   lastLow?: { price: number; time: string } | null;
   prevLow?: { price: number; time: string } | null;
+  source: string;
+}
+
+export interface Rsi14Response {
+  symbol: string;
+  interval: string;
+  period: number;
+  rsi: number;
+  bias: Bias;
+  source: string;
+}
+
+export type MacdSign = "positive" | "negative" | "flat";
+export interface MacdHistogramResponse {
+  symbol: string;
+  interval: string;
+  fast: number;
+  slow: number;
+  signal: number;
+  macd: number;
+  signalValue: number;
+  histogram: number;
+  sign: MacdSign;
   source: string;
 }
 
@@ -72,3 +93,16 @@ export function fetchHHHL(symbol?: string, window = 2) {
     params: { ...(symbol ? { symbol } : {}), window },
   });
 }
+
+export function fetchRsi14(symbol?: string) {
+  return http.get<Rsi14Response>("/metrics/rsi14", {
+    params: symbol ? { symbol } : undefined,
+  });
+}
+
+export function fetchMacdHistogram(symbol?: string, fast = 12, slow = 26, signal = 9) {
+  return http.get<MacdHistogramResponse>("/metrics/macd-histogram", {
+    params: { ...(symbol ? { symbol } : {}), fast, slow, signal },
+  });
+}
+

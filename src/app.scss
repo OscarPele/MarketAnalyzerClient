@@ -6,7 +6,8 @@ body,
 
 body {
   margin: 0;
-  background: #f4f5fb;
+  /* Fondo ligeramente más oscuro que blanco */
+  background: #eff2f7;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: #0f172a;
   overflow-x: hidden;
@@ -74,21 +75,12 @@ body {
 
 .app-main {
   flex: 1;
-  max-width: 1180px;
   width: 100%;
-  margin: 1.25rem auto 1.5rem;
-  padding: 0 1.5rem 1.5rem;
+  margin: 0;              /* ocupar todo el ancho, sin centrado */
+  padding: 0;             /* sin padding lateral para llegar al borde */
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-}
-
-.dashboard-card {
-  background: #ffffff;
-  border: 1px solid rgba(15, 23, 42, 0.025);
-  border-radius: 18px;
-  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.03);
-  padding: 1.1rem 1.1rem 1.05rem;
 }
 
 .not-found {
@@ -113,7 +105,7 @@ body {
   }
 
   .app-main {
-    padding: 0 1rem 1.25rem;
-    margin-top: 1rem;
+    padding: 0;
+    margin: 0;
   }
 }

@@ -1,0 +1,119 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #f4f5fb;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #0f172a;
+  overflow-x: hidden;
+}
+
+.app-shell {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: #ffffff;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.04);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.03);
+}
+
+.top-nav {
+  max-width: 1180px;
+  margin: 0 auto;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 1.5rem;
+}
+
+.brand {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #0f172a;
+}
+
+.nav-links {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.nav-links a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: #64748b;
+  text-decoration: none;
+  transition: 0.12s ease-in-out;
+}
+
+.nav-links a:hover {
+  background: rgba(99, 102, 241, 0.04);
+  color: #0f172a;
+}
+
+.nav-links a.active {
+  background: rgba(99, 102, 241, 0.12);
+  color: #1f2937;
+  border: 1px solid rgba(99, 102, 241, 0.18);
+}
+
+.app-main {
+  flex: 1;
+  max-width: 1180px;
+  width: 100%;
+  margin: 1.25rem auto 1.5rem;
+  padding: 0 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.dashboard-card {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.025);
+  border-radius: 18px;
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.03);
+  padding: 1.1rem 1.1rem 1.05rem;
+}
+
+.not-found {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid rgba(15, 23, 42, 0.025);
+  padding: 1rem 1.25rem;
+  font-size: 0.9rem;
+  color: #0f172a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media (max-width: 720px) {
+  .top-nav {
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.75rem 1.25rem 1rem;
+  }
+
+  .app-main {
+    padding: 0 1rem 1.25rem;
+    margin-top: 1rem;
+  }
+}

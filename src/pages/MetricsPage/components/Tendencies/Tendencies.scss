@@ -4,6 +4,7 @@
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
   padding: 16px;
+  overflow: visible;
 }
 
 .tendencies-toolbar {
@@ -30,18 +31,38 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
+  overflow: visible;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .tendencies-card {
+  position: relative;
+  overflow: visible;
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 16px;
+  z-index: 0;
+
+  &:hover,
+  &:focus-within {
+    z-index: 100;
+  }
 
   h2 {
     margin: 0 0 8px;
     font-size: 16px;
     font-weight: 600;
+    padding-right: 28px;
   }
 
   .tendencies-value {
@@ -50,3 +71,93 @@
   }
 }
 
+.help-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 50%;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  color: #6b7280;
+  cursor: help;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  /* No usar opacity para evitar transparencia del tooltip y su texto */
+  opacity: 1;
+  box-shadow: 0 1px 2px rgba(2, 6, 23, 0.06);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 1;
+    transform: scale(1.02);
+    outline: none;
+  }
+}
+
+.help-badge::after {
+  content: attr(data-tip);
+  position: absolute;
+  right: 0;
+  top: 100%;
+  transform: translateY(8px);
+  min-width: 220px;
+  max-width: 320px;
+  padding: 10px 12px;
+  font-size: 12px;
+  line-height: 1.35;
+  color: #ffffff; /* texto sólido para máxima legibilidad */
+  background: #0f172a; /* fondo sólido sin transparencia */
+  border: 1px solid rgba(15, 23, 42, 0.25);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.25);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45); /* mejora contorno en fondos complejos */
+  pointer-events: none;
+  white-space: normal;
+  opacity: 1; /* garantizar que el texto no hereda transparencia */
+  visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease, transform 0.15s ease;
+  z-index: 1000;
+  isolation: isolate;           /* evitar mezclas con contenido subyacente */
+  mix-blend-mode: normal;       /* asegurar composición normal del texto */
+}
+
+.help-badge::before {
+  content: "";
+  position: absolute;
+  right: 6px;
+  top: calc(100% + 2px);
+  width: 8px;
+  height: 8px;
+  background: #0f172a; /* sólido, sin transparencia */
+  border-left: 1px solid rgba(15, 23, 42, 0.25);
+  border-top: 1px solid rgba(15, 23, 42, 0.25);
+  transform: rotate(45deg);
+  opacity: 1;
+  visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+  z-index: 1001;
+}
+
+.help-badge:hover::after,
+.help-badge:focus-visible::after,
+.help-badge:hover::before,
+.help-badge:focus-visible::before {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .help-badge,
+  .help-badge::after,
+  .help-badge::before {
+    transition: none;
+  }
+}

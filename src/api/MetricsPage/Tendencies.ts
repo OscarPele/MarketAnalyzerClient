@@ -1,3 +1,4 @@
+// src/api/MetricsPage/Tendencies.ts
 import { http } from "../http";
 
 export interface Ema200Response {

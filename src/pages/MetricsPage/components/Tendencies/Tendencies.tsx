@@ -105,6 +105,28 @@ export default function Tendencies() {
   const macdText =
     macdSign === "positive" ? "Positivo" : macdSign === "negative" ? "Negativo" : macdSign === "flat" ? "Plano" : "—";
 
+  // Textos de ayuda breves por métrica
+  const tip = {
+    ema200_1h:
+      "EMA200 1h: filtro de tendencia intradía. Precio > EMA → sesgo alcista; < EMA → bajista. Decisión: por encima + pendiente/RSI/MACD favorables → apalancamiento alcista. Pegado y plano → inversión dual. Por debajo y débil → dual bajista para acumular USDC.",
+    ema200_4h:
+      "EMA200 4h: marco mayor. Confirma o invalida el sesgo 1h. Por encima y con pendiente ↑ → apalancamiento. Plano/cerca → dual. Por debajo y presión ↓ → dual bajista.",
+    ema50_1h:
+      "EMA50 1h: tendencia intermedia y pullbacks. Precio sostenido > EMA50 confirma largos; < EMA50 confirma cortos. Cruce frecuente y rango → dual.",
+    ema21_1h:
+      "EMA21 1h: timing. Sirve para entradas y salidas rápidas. Precio rebotando sobre EMA21 con fuerza → apalancamiento; zigzag lateral alrededor → dual.",
+    slope200_1h:
+      "Pendiente EMA200 1h: impulso estructural. > +0,02%/vela → fuerza alcista (apalancamiento). Entre −0,01% y +0,01% → lateral (dual). < −0,02%/vela → presión bajista (dual bajista).",
+    slope200_4h:
+      "Pendiente EMA200 4h: dirección primaria. Umbrales más estrictos. ↑ sostenida → apalancamiento; ≈0 → dual; ↓ sostenida → dual bajista.",
+    structure_1h:
+      "Estructura 1h: HH/HL = secuencia alcista; LH/LL = bajista. Mixto o alterno → lateral. Decisión: HH/HL + momentum → apalancamiento; mixto → dual; LH/LL → dual bajista.",
+    rsi14_1h:
+      "RSI14 1h: >55 alcista, 45–55 lateral, <45 bajista. Decisión: >55 junto a pendientes ↑ → apalancamiento; 45–55 → dual; <45 → dual bajista.",
+    macdHist_1h:
+      "MACD histograma 1h: >0 momentum alcista, <0 bajista, ≈0 lateral. Decisión: >0 creciente → apalancamiento; ≈0 → dual; <0 decreciente → dual bajista.",
+  } as const;
+
   return (
     <div className="tendencies-metrics-panel">
       <section className="tendencies-toolbar">
@@ -118,44 +140,65 @@ export default function Tendencies() {
       <section className="tendencies-grid">
         <div className="tendencies-card">
           <h2>EMA 200 · 1h</h2>
+          <button className="help-badge" aria-label="Ayuda EMA200 1h" data-tip={tip.ema200_1h}>?</button>
           <div className="tendencies-value">{fmt(ema1h)}</div>
         </div>
+
         <div className="tendencies-card">
           <h2>EMA 200 · 4h</h2>
+          <button className="help-badge" aria-label="Ayuda EMA200 4h" data-tip={tip.ema200_4h}>?</button>
           <div className="tendencies-value">{fmt(ema4h)}</div>
         </div>
+
         <div className="tendencies-card">
           <h2>EMA 50 · 1h</h2>
+          <button className="help-badge" aria-label="Ayuda EMA50 1h" data-tip={tip.ema50_1h}>?</button>
           <div className="tendencies-value">{fmt(ema50_1h)}</div>
         </div>
+
         <div className="tendencies-card">
           <h2>EMA 21 · 1h</h2>
+          <button className="help-badge" aria-label="Ayuda EMA21 1h" data-tip={tip.ema21_1h}>?</button>
           <div className="tendencies-value">{fmt(ema21_1h)}</div>
         </div>
+
         <div className="tendencies-card">
           <h2>Pendiente EMA 200 · 1h</h2>
-          <div className="tendencies-value">{slope1h ? `${arrow(slope1h)} ${fmt(slope1h.pctPerBar, 3)}%` : "—"}</div>
+          <button className="help-badge" aria-label="Ayuda Pendiente 1h" data-tip={tip.slope200_1h}>?</button>
+          <div className="tendencies-value">
+            {slope1h ? `${arrow(slope1h)} ${fmt(slope1h.pctPerBar, 3)}%` : "—"}
+          </div>
         </div>
+
         <div className="tendencies-card">
           <h2>Pendiente EMA 200 · 4h</h2>
-          <div className="tendencies-value">{slope4h ? `${arrow(slope4h)} ${fmt(slope4h.pctPerBar, 3)}%` : "—"}</div>
+          <button className="help-badge" aria-label="Ayuda Pendiente 4h" data-tip={tip.slope200_4h}>?</button>
+          <div className="tendencies-value">
+            {slope4h ? `${arrow(slope4h)} ${fmt(slope4h.pctPerBar, 3)}%` : "—"}
+          </div>
         </div>
+
         <div className="tendencies-card">
           <h2>Estructura 1h</h2>
+          <button className="help-badge" aria-label="Ayuda Estructura 1h" data-tip={tip.structure_1h}>?</button>
           <div className="tendencies-value">{biasText}</div>
           <div style={{ marginTop: 6, opacity: 0.8 }}>
             Altos: {highSeq ?? "—"} · Bajos: {lowSeq ?? "—"}
           </div>
         </div>
+
         <div className="tendencies-card">
           <h2>RSI 14 · 1h</h2>
+          <button className="help-badge" aria-label="Ayuda RSI 1h" data-tip={tip.rsi14_1h}>?</button>
           <div className="tendencies-value">{fmt(rsi14, 1)}</div>
           <div style={{ marginTop: 6, opacity: 0.8 }}>
             {rsiBias === "bullish" ? "Alcista" : rsiBias === "bearish" ? "Bajista" : rsiBias === "neutral" ? "Neutral" : "—"}
           </div>
         </div>
+
         <div className="tendencies-card">
           <h2>MACD Histograma · 1h</h2>
+          <button className="help-badge" aria-label="Ayuda MACD 1h" data-tip={tip.macdHist_1h}>?</button>
           <div className="tendencies-value">{fmt(macdHist, 4)}</div>
           <div style={{ marginTop: 6, opacity: 0.8 }}>{macdText}</div>
         </div>

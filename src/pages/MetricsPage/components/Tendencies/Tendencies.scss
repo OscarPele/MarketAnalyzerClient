@@ -4,59 +4,46 @@
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
   padding: 16px;
-  overflow: visible;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .tendencies-toolbar {
   display: flex;
-  gap: 12px;
-  align-items: end;
-  margin: 12px 0 24px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4px 0 12px;
 
   .group-title {
     margin: 0;
-    font-size: 18px;
+    font-size: clamp(14px, 1.6vw, 18px);
     font-weight: 600;
-  }
-
-  .btn {
-    padding: 10px 14px;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    background: #f9fafb;
-    cursor: pointer;
-
-    &:disabled {
-      cursor: not-allowed;
-      opacity: 0.7;
-    }
   }
 }
 
+.tendencies-metrics-panel .error-text { color: crimson; margin: 0 0 8px; font-size: 12px; }
+
 .tendencies-grid {
+  flex: 1;
+  min-height: 0;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
-  overflow: visible;
+  gap: 10px;
 
-  @media (max-width: 1200px) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-  @media (max-width: 900px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr;
-  }
+  @media (max-width: 1200px) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 900px)  { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (max-width: 600px)  { grid-template-columns: 1fr; }
 }
 
 .tendencies-card {
   position: relative;
-  overflow: visible;
+  overflow: hidden;
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
-  padding: 16px;
+  padding: 14px;
   z-index: 0;
 
   &:hover,
@@ -64,20 +51,11 @@
     z-index: 100;
   }
 
-  h2 {
-    margin: 0 0 8px;
-    font-size: 16px;
-    font-weight: 600;
-    padding-right: 28px;
-  }
-
-  .tendencies-value {
-    font-size: 28px;
-    font-weight: 700;
-  }
+  h2 { margin: 0 0 6px; font-size: clamp(12px, 1.2vw, 16px); font-weight: 600; padding-right: 28px; }
+  .tendencies-value { font-size: clamp(18px, 2.1vw, 28px); font-weight: 700; }
 }
 
-.help-badge {
+.tendencies-metrics-panel .help-badge {
   position: absolute;
   top: 8px;
   right: 8px;
@@ -95,20 +73,19 @@
   align-items: center;
   justify-content: center;
   padding: 0;
-  /* No usar opacity para evitar transparencia del tooltip y su texto */
   opacity: 1;
   box-shadow: 0 1px 2px rgba(2, 6, 23, 0.06);
   transition: opacity 0.15s ease, transform 0.15s ease;
-
-  &:hover,
-  &:focus-visible {
-    opacity: 1;
-    transform: scale(1.02);
-    outline: none;
-  }
 }
 
-.help-badge::after {
+.tendencies-metrics-panel .help-badge:hover,
+.tendencies-metrics-panel .help-badge:focus-visible {
+  opacity: 1;
+  transform: scale(1.02);
+  outline: none;
+}
+
+.tendencies-metrics-panel .help-badge::after {
   content: attr(data-tip);
   position: absolute;
   right: 0;
@@ -119,51 +96,50 @@
   padding: 10px 12px;
   font-size: 12px;
   line-height: 1.35;
-  color: #ffffff; /* texto sólido para máxima legibilidad */
-  background: #0f172a; /* fondo sólido sin transparencia */
+  color: #ffffff;
+  background: #0f172a;
   border: 1px solid rgba(15, 23, 42, 0.25);
   border-radius: 8px;
   box-shadow: 0 8px 24px rgba(2, 6, 23, 0.25);
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45); /* mejora contorno en fondos complejos */
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
   pointer-events: none;
   white-space: normal;
-  opacity: 1; /* garantizar que el texto no hereda transparencia */
+  opacity: 1;
   visibility: hidden;
   transition: opacity 0.15s ease, visibility 0.15s ease, transform 0.15s ease;
   z-index: 1000;
-  isolation: isolate;           /* evitar mezclas con contenido subyacente */
-  mix-blend-mode: normal;       /* asegurar composición normal del texto */
+  isolation: isolate;
+  mix-blend-mode: normal;
 }
 
-.help-badge::before {
+.tendencies-metrics-panel .help-badge::before {
   content: "";
   position: absolute;
   right: 6px;
   top: calc(100% + 2px);
   width: 8px;
   height: 8px;
-  background: #0f172a; /* sólido, sin transparencia */
+  background: #0f172a;
   border-left: 1px solid rgba(15, 23, 42, 0.25);
   border-top: 1px solid rgba(15, 23, 42, 0.25);
   transform: rotate(45deg);
   opacity: 1;
   visibility: hidden;
-  transition: opacity 0.15s ease, visibility 0.15s ease;
   z-index: 1001;
 }
 
-.help-badge:hover::after,
-.help-badge:focus-visible::after,
-.help-badge:hover::before,
-.help-badge:focus-visible::before {
+.tendencies-metrics-panel .help-badge:hover::after,
+.tendencies-metrics-panel .help-badge:focus-visible::after,
+.tendencies-metrics-panel .help-badge:hover::before,
+.tendencies-metrics-panel .help-badge:focus-visible::before {
   opacity: 1;
   visibility: visible;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .help-badge,
-  .help-badge::after,
-  .help-badge::before {
+  .tendencies-metrics-panel .help-badge,
+  .tendencies-metrics-panel .help-badge::after,
+  .tendencies-metrics-panel .help-badge::before {
     transition: none;
   }
 }

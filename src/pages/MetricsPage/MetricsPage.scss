@@ -1,11 +1,10 @@
 
-
 .metrics-root {
   padding: 16px;
   display: flex;
-  flex-direction: row;
-  gap: 16px;
-  justify-content: flex-start; /* alinear a la izquierda */
-  align-items: stretch;        /* el padre manda en el alto */
-  flex-wrap: wrap;             /* permite acomodar más contenedores */
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex-wrap: nowrap;
 }

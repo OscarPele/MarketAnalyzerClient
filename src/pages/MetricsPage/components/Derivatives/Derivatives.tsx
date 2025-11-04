@@ -39,11 +39,9 @@ export default function Derivatives() {
   const [elrNote, setElrNote] = useState<string | null>(null);
 
   // UI
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   async function load(s: string) {
-    setLoading(true);
     setError(null);
     try {
       const [rOi, rFund, rBasis, rLS, rLiq, rElr] = await Promise.all([
@@ -81,7 +79,6 @@ export default function Derivatives() {
       setLiqCount(null); setLiqNotional(null); setLiqQueried(null); setLiqNote(null);
       setOiUsd(null); setElrNote(null);
     } finally {
-      setLoading(false);
     }
   }
 
@@ -112,62 +109,62 @@ export default function Derivatives() {
   const showFallbackBadge = liqQueried && liqQueried !== SYMBOL;
 
   return (
-    <div className="tendencies-metrics-panel">
-      <section className="tendencies-toolbar">
+    <div className="deriv-metrics-panel">
+      <section className="deriv-toolbar">
         <h3 className="group-title">Derivados</h3>
       </section>
 
-      {error && <p style={{ color: "crimson", marginBottom: 12 }}>{error}</p>}
+      {error && <p className="error-text">{error}</p>}
 
-      <section className="tendencies-grid">
+      <section className="deriv-grid">
         {/* 19) OI 1h */}
-        <div className="tendencies-card">
+        <div className="deriv-card">
           <h2>Open Interest · 1h</h2>
           <button className="help-badge" aria-label="Ayuda OI" data-tip={tip.oi}>?</button>
-          <div className="tendencies-value">
+          <div className="deriv-value">
             {oi1h ? `${fmt(oi1h.openInterest, 0)} (${arrow(oi1h.delta)} ${fmt(oi1h.pct, 2)}%)` : "—"}
           </div>
         </div>
 
         {/* 19) OI 4h */}
-        <div className="tendencies-card">
+        <div className="deriv-card">
           <h2>Open Interest · 4h</h2>
           <button className="help-badge" aria-label="Ayuda OI" data-tip={tip.oi}>?</button>
-          <div className="tendencies-value">
+          <div className="deriv-value">
             {oi4h ? `${fmt(oi4h.openInterest, 0)} (${arrow(oi4h.delta)} ${fmt(oi4h.pct, 2)}%)` : "—"}
           </div>
         </div>
 
         {/* 20) Funding */}
-        <div className="tendencies-card">
+        <div className="deriv-card">
           <h2>Funding rate</h2>
           <button className="help-badge" aria-label="Ayuda Funding" data-tip={tip.funding}>?</button>
-          <div className="tendencies-value">{fundingPct != null ? `${fmt(fundingPct, 4)}%` : "—"}</div>
+          <div className="deriv-value">{fundingPct != null ? `${fmt(fundingPct, 4)}%` : "—"}</div>
         </div>
 
         {/* 21) Basis 1M */}
-        <div className="tendencies-card">
+        <div className="deriv-card">
           <h2>Basis 1M (anualizado)</h2>
           <button className="help-badge" aria-label="Ayuda Basis" data-tip={tip.basis}>?</button>
-          <div className="tendencies-value">
+          <div className="deriv-value">
             {annual1M != null ? `${fmt(annual1M * 100, 2)}%` : "—"}
           </div>
           <div style={{ marginTop: 6, opacity: 0.8 }}>{basisText}</div>
         </div>
 
         {/* 22) Long/Short ratio */}
-        <div className="tendencies-card">
+        <div className="deriv-card">
           <h2>Long/Short ratio · 1h</h2>
           <button className="help-badge" aria-label="Ayuda L/S" data-tip={tip.ls}>?</button>
-          <div className="tendencies-value">{lsRatio != null ? fmt(lsRatio, 3) : "—"}</div>
+          <div className="deriv-value">{lsRatio != null ? fmt(lsRatio, 3) : "—"}</div>
           <div style={{ marginTop: 6, opacity: 0.8 }}>{lsText}</div>
         </div>
 
         {/* 23) Liquidaciones 24h */}
-        <div className="tendencies-card">
+        <div className="deriv-card">
           <h2>Liquidaciones · 24h</h2>
           <button className="help-badge" aria-label="Ayuda Liq" data-tip={tip.liq}>?</button>
-          <div className="tendencies-value">
+          <div className="deriv-value">
             {liqNotional != null ? `${fmt(liqNotional, 0)}` : "—"}
           </div>
           <div style={{ marginTop: 6, opacity: 0.8 }}>
@@ -186,10 +183,10 @@ export default function Derivatives() {
         </div>
 
         {/* 24) ELR (placeholder) */}
-        <div className="tendencies-card">
+        <div className="deriv-card">
           <h2>Apalancamiento estimado</h2>
           <button className="help-badge" aria-label="Ayuda ELR" data-tip={tip.elr}>?</button>
-          <div className="tendencies-value">
+          <div className="deriv-value">
             {oiUsd != null ? `OI USD: ${fmt(oiUsd, 0)}` : "—"}
           </div>
           <div style={{ marginTop: 6, opacity: 0.8 }}>{elrNote ?? "—"}</div>

@@ -16,7 +16,7 @@ import {
 } from "../../../../api/MetricsPage/Session";
 
 // Reutilizamos los estilos ya existentes
-import "../Tendencies/Tendencies.scss";
+import "./SessionContext.scss";
 
 export default function SessionContext() {
   const SYMBOL = "BTCUSDC";
@@ -102,45 +102,45 @@ export default function SessionContext() {
       : sessions?.currentSession ?? "—";
 
   return (
-    <div className="tendencies-metrics-panel">
-      <section className="tendencies-toolbar">
+    <div className="session-panel">
+      <section className="session-toolbar">
         <h3 className="group-title">Contexto de Sesión</h3>
       </section>
 
-      {error && <p style={{ color: "crimson", marginBottom: 12 }}>{error}</p>}
+      {error && <p className="error-text">{error}</p>}
 
-      <section className="tendencies-grid">
+      <section className="session-grid">
         {/* 25) VWAP diario */}
-        <div className="tendencies-card">
+        <div className="session-card">
           <h2>VWAP diario</h2>
           <button className="help-badge" aria-label="Ayuda VWAP" data-tip={tip.vwap}>?</button>
-          <div className="tendencies-value">{fmt(vwapDaily?.vwap, 2)}</div>
+          <div className="session-value">{fmt(vwapDaily?.vwap, 2)}</div>
         </div>
 
         {/* 26) AVWAP desde apertura */}
-        <div className="tendencies-card">
+        <div className="session-card">
           <h2>AVWAP (desde apertura)</h2>
           <button className="help-badge" aria-label="Ayuda AVWAP" data-tip={tip.avwap}>?</button>
-          <div className="tendencies-value">{fmt(avwap?.avwap, 2)}</div>
+          <div className="session-value">{fmt(avwap?.avwap, 2)}</div>
           <div style={{ marginTop: 6, opacity: 0.8 }}>
             Ancla: {tsToTime(avwap?.anchorTs)} UTC
           </div>
         </div>
 
         {/* 27) High/Low día previo */}
-        <div className="tendencies-card">
+        <div className="session-card">
           <h2>High/Low día previo</h2>
           <button className="help-badge" aria-label="Ayuda Hi/Lo" data-tip={tip.hilo}>?</button>
-          <div className="tendencies-value">
+          <div className="session-value">
             H: {fmt(prev?.prevDayHigh, 2)} · L: {fmt(prev?.prevDayLow, 2)}
           </div>
         </div>
 
         {/* 28) Opening Range 60m */}
-        <div className="tendencies-card">
+        <div className="session-card">
           <h2>Opening Range 60m</h2>
           <button className="help-badge" aria-label="Ayuda OR60" data-tip={tip.or}>?</button>
-          <div className="tendencies-value">
+          <div className="session-value">
             {fmt(or60?.orHigh, 2)} / {fmt(or60?.orLow, 2)}
           </div>
           <div style={{ marginTop: 6, opacity: 0.8 }}>
@@ -149,20 +149,20 @@ export default function SessionContext() {
         </div>
 
         {/* 29) Sesión actual */}
-        <div className="tendencies-card">
+        <div className="session-card">
           <h2>Sesión actual</h2>
           <button className="help-badge" aria-label="Ayuda Sesiones" data-tip={tip.sessions}>?</button>
-          <div className="tendencies-value">{currentSessionText}</div>
+          <div className="session-value">{currentSessionText}</div>
           <div style={{ marginTop: 6, opacity: 0.8 }}>
             Día UTC: {tsToTime(sessions?.utcDayStart)}–…
           </div>
         </div>
 
         {/* 30) Flag macro del día */}
-        <div className="tendencies-card">
+        <div className="session-card">
           <h2>Flag macro (hoy)</h2>
           <button className="help-badge" aria-label="Ayuda Macro" data-tip={tip.macro}>?</button>
-          <div className="tendencies-value">
+          <div className="session-value">
             {macro?.hasHighImpact ? "Alto impacto" : "Normal"}
           </div>
           <div style={{ marginTop: 6, opacity: 0.8 }}>

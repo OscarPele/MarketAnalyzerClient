@@ -9,6 +9,7 @@ import {
   fetchAtrPctPercentile,
   type SqueezeState,
 } from "../../../../api/MetricsPage/Volatility";
+import "./VolatilyAndRange.scss";
 
 export default function VolatilityAndRange() {
   const SYMBOL = "BTCUSDC";
@@ -115,33 +116,33 @@ export default function VolatilityAndRange() {
   } as const;
 
   return (
-    <div className="tendencies-metrics-panel">
-      <section className="tendencies-toolbar">
+    <div className="vol-panel">
+      <section className="vol-toolbar">
         <h3 className="group-title">Volatilidad</h3>
       </section>
 
-      {error && <p style={{ color: "crimson", marginBottom: 12 }}>{error}</p>}
+      {error && <p className="error-text">{error}</p>}
 
-      <section className="tendencies-grid">
+      <section className="vol-grid">
         {/* ATR 14 */}
-        <div className="tendencies-card">
+        <div className="vol-card">
           <h2>ATR 14 · 1h</h2>
           <button className="help-badge" aria-label="Ayuda ATR" data-tip={tip.atr14}>?</button>
-          <div className="tendencies-value">{fmt(atr14, 2)}</div>
+          <div className="vol-value">{fmt(atr14, 2)}</div>
         </div>
 
         {/* ATR% */}
-        <div className="tendencies-card">
+        <div className="vol-card">
           <h2>ATR% · 1h</h2>
           <button className="help-badge" aria-label="Ayuda ATR%" data-tip={tip.atrPct}>?</button>
-          <div className="tendencies-value">{atrPct != null ? `${fmt(atrPct, 2)}%` : "—"}</div>
+          <div className="vol-value">{atrPct != null ? `${fmt(atrPct, 2)}%` : "—"}</div>
         </div>
 
         {/* BB Width */}
-        <div className="tendencies-card">
+        <div className="vol-card">
           <h2>BB Width 20, 2σ · 1h</h2>
           <button className="help-badge" aria-label="Ayuda BB Width" data-tip={tip.bbWidth}>?</button>
-          <div className="tendencies-value">
+          <div className="vol-value">
             {bbPct != null ? `${fmt(bbPct, 2)}%` : "—"}
           </div>
           <div style={{ marginTop: 6, opacity: 0.8 }}>
@@ -150,20 +151,20 @@ export default function VolatilityAndRange() {
         </div>
 
         {/* Squeeze BB–Keltner */}
-        <div className="tendencies-card">
+        <div className="vol-card">
           <h2>Squeeze BB–Keltner · 1h</h2>
           <button className="help-badge" aria-label="Ayuda Squeeze" data-tip={tip.squeeze}>?</button>
-          <div className="tendencies-value">{squeezeText}</div>
+          <div className="vol-value">{squeezeText}</div>
           <div style={{ marginTop: 6, opacity: 0.8 }}>
             {inSqueeze == null ? "—" : inSqueeze ? "BB dentro de Keltner" : "BB fuera de Keltner"}
           </div>
         </div>
 
         {/* Distancia a VWAP */}
-        <div className="tendencies-card">
+        <div className="vol-card">
           <h2>Distancia a VWAP · 1h</h2>
           <button className="help-badge" aria-label="Ayuda VWAP" data-tip={tip.vwap}>?</button>
-          <div className="tendencies-value">
+          <div className="vol-value">
             {vwapDistPct != null ? `${fmt(vwapDistPct, 2)}%` : "—"}
           </div>
           <div style={{ marginTop: 6, opacity: 0.8 }}>
@@ -174,10 +175,10 @@ export default function VolatilityAndRange() {
         </div>
 
         {/* Percentil ATR% 30D */}
-        <div className="tendencies-card">
+        <div className="vol-card">
           <h2>Percentil ATR% · 30D</h2>
           <button className="help-badge" aria-label="Ayuda Percentil ATR%" data-tip={tip.atrPctPerc}>?</button>
-          <div className="tendencies-value">
+          <div className="vol-value">
             {atrPctPerc != null ? `${fmt(atrPctPerc, 1)}º pct` : "—"}
           </div>
           <div style={{ marginTop: 6, opacity: 0.8 }}>

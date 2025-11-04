@@ -1,4 +1,4 @@
-.vol-panel {
+.session-panel {
   background: #ffffff;
   border: 1px solid rgba(15, 23, 42, 0.06);
   border-radius: 16px;
@@ -10,73 +10,56 @@
   flex-direction: column;
 }
 
-.vol-toolbar {
+.session-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 4px 0 12px;
+
   .group-title { margin: 0; font-size: clamp(14px, 1.6vw, 18px); font-weight: 600; }
 }
 
-.vol-panel .error-text { color: crimson; margin: 0 0 8px; font-size: 12px; }
+.session-panel .error-text { color: crimson; margin: 0 0 8px; font-size: 12px; }
 
-.vol-grid {
+.session-grid {
   flex: 1;
   min-height: 0;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
 }
-@media (max-width: 1200px) { .vol-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (max-width: 900px)  { .vol-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 600px)  { .vol-grid { grid-template-columns: 1fr; } }
+@media (max-width: 1200px) { .session-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 900px)  { .session-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px)  { .session-grid { grid-template-columns: 1fr; } }
 
-.vol-card {
+.session-card {
   position: relative;
-  overflow: hidden;
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 14px;
+  overflow: hidden;
   z-index: 0;
 
   &:hover,
   &:focus-within {
     z-index: 100;
   }
+
   h2 { margin: 0 0 6px; font-size: clamp(12px, 1.2vw, 16px); font-weight: 600; padding-right: 28px; }
 }
-.vol-value { font-size: clamp(18px, 2.1vw, 28px); font-weight: 700; }
 
-.vol-panel .help-badge {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 18px;
-  height: 18px;
-  line-height: 18px;
-  font-size: 11px;
-  font-weight: 700;
-  border-radius: 50%;
-  border: 1px solid #e5e7eb;
-  background: #f9fafb;
-  color: #6b7280;
-  cursor: help;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  opacity: 1;
-  box-shadow: 0 1px 2px rgba(2, 6, 23, 0.06);
-  transition: opacity 0.15s ease, transform 0.15s ease;
+.session-value { font-size: clamp(18px, 2.1vw, 28px); font-weight: 700; }
+
+.session-panel .help-badge {
+  position: absolute; top: 8px; right: 8px; width: 18px; height: 18px; line-height: 18px;
+  font-size: 11px; font-weight: 700; border-radius: 50%; border: 1px solid #e5e7eb;
+  background: #f9fafb; color: #6b7280; cursor: help; display: inline-flex; align-items: center; justify-content: center;
+  padding: 0; opacity: 1; box-shadow: 0 1px 2px rgba(2, 6, 23, 0.06); transition: opacity .15s ease, transform .15s ease;
 }
-.vol-panel .help-badge:hover,
-.vol-panel .help-badge:focus-visible {
-  opacity: 1;
-  transform: scale(1.02);
-  outline: none;
-}
-.vol-panel .help-badge::after {
+.session-panel .help-badge:hover,
+.session-panel .help-badge:focus-visible { opacity: 1; transform: scale(1.02); outline: none; }
+.session-panel .help-badge::after {
   content: attr(data-tip);
   position: absolute;
   right: 0;
@@ -102,7 +85,7 @@
   isolation: isolate;
   mix-blend-mode: normal;
 }
-.vol-panel .help-badge::before {
+.session-panel .help-badge::before {
   content: "";
   position: absolute;
   right: 6px;
@@ -117,18 +100,15 @@
   visibility: hidden;
   z-index: 1001;
 }
-.vol-panel .help-badge:hover::after,
-.vol-panel .help-badge:focus-visible::after,
-.vol-panel .help-badge:hover::before,
-.vol-panel .help-badge:focus-visible::before {
-  opacity: 1;
-  visibility: visible;
-}
+.session-panel .help-badge:hover::after,
+.session-panel .help-badge:focus-visible::after,
+.session-panel .help-badge:hover::before,
+.session-panel .help-badge:focus-visible::before { opacity: 1; visibility: visible; }
 
 @media (prefers-reduced-motion: reduce) {
-  .vol-panel .help-badge,
-  .vol-panel .help-badge::after,
-  .vol-panel .help-badge::before {
+  .session-panel .help-badge,
+  .session-panel .help-badge::after,
+  .session-panel .help-badge::before {
     transition: none;
   }
 }

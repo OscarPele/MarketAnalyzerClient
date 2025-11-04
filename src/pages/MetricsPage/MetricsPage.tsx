@@ -10,16 +10,12 @@ export default function MetricsPage() {
     <main className="metrics-root">
       {/*-- Tendencias --*/}
       <Tendencies />
-      <div style={{ height: 16 }} />
       {/*-- Volatilidad --*/}
       <VolatilityAndRange />
-      <div style={{ height: 16 }} />
       {/*-- Flow --*/}
       <Flow />
-      <div style={{ height: 16 }} />
       {/*-- Derivados --*/}
       <Derivatives />
-      <div style={{ height: 16 }} />
       {/*-- Contexto de Sesión --*/}
       <SessionContext />
     </main>

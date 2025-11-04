@@ -125,19 +125,19 @@ export default function Flow() {
   } as const;
 
   return (
-    <div className="tendencies-metrics-panel">
-      <section className="tendencies-toolbar">
+    <div className="flow-panel">
+      <section className="flow-toolbar">
         <h3 className="group-title">Flow</h3>
       </section>
 
-      {error && <p style={{ color: "crimson", marginBottom: 12 }}>{error}</p>}
+      {error && <p className="error-text">{error}</p>}
 
-      <section className="tendencies-grid">
+      <section className="flow-grid">
         {/* 14) Volumen vs MA20 */}
-        <div className="tendencies-card">
+        <div className="flow-card">
           <h2>Volumen vs MA20 · 1h</h2>
           <button className="help-badge" aria-label="Ayuda Volumen" data-tip={tip.volMA20}>?</button>
-          <div className="tendencies-value">
+          <div className="flow-value">
             {volRatio != null ? `${fmt(volRatio, 2)}×` : "—"}
           </div>
           <div style={{ marginTop: 6, opacity: 0.8 }}>
@@ -146,10 +146,10 @@ export default function Flow() {
         </div>
 
         {/* 15) OBV pendiente */}
-        <div className="tendencies-card">
+        <div className="flow-card">
           <h2>OBV pendiente · 1h</h2>
           <button className="help-badge" aria-label="Ayuda OBV" data-tip={tip.obvSlope}>?</button>
-          <div className="tendencies-value">
+          <div className="flow-value">
             {obvPct != null ? `${arrow(obvSign)} ${fmt(obvPct, 3)}%/vela` : "—"}
           </div>
           <div style={{ marginTop: 6, opacity: 0.8 }}>
@@ -158,10 +158,10 @@ export default function Flow() {
         </div>
 
         {/* 16) CVD 1h */}
-        <div className="tendencies-card">
+        <div className="flow-card">
           <h2>CVD · 1h</h2>
           <button className="help-badge" aria-label="Ayuda CVD" data-tip={tip.cvd}>?</button>
-          <div className="tendencies-value">
+          <div className="flow-value">
             {cvd != null ? fmt(cvd, 2) : "—"}
           </div>
           <div style={{ marginTop: 6, opacity: 0.8 }}>
@@ -170,20 +170,20 @@ export default function Flow() {
         </div>
 
         {/* 17) Buy/Sell Ratio 1h */}
-        <div className="tendencies-card">
+        <div className="flow-card">
           <h2>Buy/Sell Ratio · 1h</h2>
           <button className="help-badge" aria-label="Ayuda Buy/Sell" data-tip={tip.bsRatio}>?</button>
-          <div className="tendencies-value">
+          <div className="flow-value">
             {bsRatio != null ? `${fmt(bsRatio, 1)}%` : "—"}
           </div>
           <div style={{ marginTop: 6, opacity: 0.8 }}>{bsText}</div>
         </div>
 
         {/* 18) Order book imbalance */}
-        <div className="tendencies-card">
+        <div className="flow-card">
           <h2>Order Book Imbalance</h2>
           <button className="help-badge" aria-label="Ayuda OBI" data-tip={tip.obi}>?</button>
-          <div className="tendencies-value">
+          <div className="flow-value">
             {imbPct != null ? `${fmt(imbPct, 2)}%` : "—"}
           </div>
           <div style={{ marginTop: 6, opacity: 0.8 }}>

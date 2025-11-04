@@ -1,0 +1,134 @@
+.flow-panel {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+  padding: 16px;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.flow-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4px 0 12px;
+  .group-title { margin: 0; font-size: clamp(14px, 1.6vw, 18px); font-weight: 600; }
+}
+
+.flow-panel .error-text { color: crimson; margin: 0 0 8px; font-size: 12px; }
+
+.flow-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+@media (max-width: 1200px) { .flow-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 900px)  { .flow-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px)  { .flow-grid { grid-template-columns: 1fr; } }
+
+.flow-card {
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 14px;
+  z-index: 0;
+
+  &:hover,
+  &:focus-within {
+    z-index: 100;
+  }
+  h2 { margin: 0 0 6px; font-size: clamp(12px, 1.2vw, 16px); font-weight: 600; padding-right: 28px; }
+}
+.flow-value { font-size: clamp(18px, 2.1vw, 28px); font-weight: 700; }
+
+.flow-panel .help-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 50%;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  color: #6b7280;
+  cursor: help;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  opacity: 1;
+  box-shadow: 0 1px 2px rgba(2, 6, 23, 0.06);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.flow-panel .help-badge:hover,
+.flow-panel .help-badge:focus-visible {
+  opacity: 1;
+  transform: scale(1.02);
+  outline: none;
+}
+.flow-panel .help-badge::after {
+  content: attr(data-tip);
+  position: absolute;
+  right: 0;
+  top: 100%;
+  transform: translateY(8px);
+  min-width: 220px;
+  max-width: 320px;
+  padding: 10px 12px;
+  font-size: 12px;
+  line-height: 1.35;
+  color: #ffffff;
+  background: #0f172a;
+  border: 1px solid rgba(15, 23, 42, 0.25);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.25);
+  text-shadow: 0 1px 0 rgba(0,0,0,0.45);
+  pointer-events: none;
+  white-space: normal;
+  opacity: 1;
+  visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease, transform 0.15s ease;
+  z-index: 1000;
+  isolation: isolate;
+  mix-blend-mode: normal;
+}
+.flow-panel .help-badge::before {
+  content: "";
+  position: absolute;
+  right: 6px;
+  top: calc(100% + 2px);
+  width: 8px;
+  height: 8px;
+  background: #0f172a;
+  border-left: 1px solid rgba(15, 23, 42, 0.25);
+  border-top: 1px solid rgba(15, 23, 42, 0.25);
+  transform: rotate(45deg);
+  opacity: 1;
+  visibility: hidden;
+  z-index: 1001;
+}
+.flow-panel .help-badge:hover::after,
+.flow-panel .help-badge:focus-visible::after,
+.flow-panel .help-badge:hover::before,
+.flow-panel .help-badge:focus-visible::before {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-panel .help-badge,
+  .flow-panel .help-badge::after,
+  .flow-panel .help-badge::before {
+    transition: none;
+  }
+}

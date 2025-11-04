@@ -39,11 +39,10 @@ export default function Tendencies() {
   const [macdHist, setMacdHist] = useState<number | null>(null);
   const [macdSign, setMacdSign] = useState<MacdSign | null>(null);
 
-  const [loading, setLoading] = useState(false);
+  // Sin control de loading manual; la carga es automática
   const [error, setError] = useState<string | null>(null);
 
   async function load(s: string) {
-    setLoading(true);
     setError(null);
     try {
       const [r200, r50, r21, rSlope, rStruct, rRsi, rMacd] = await Promise.all([
@@ -85,12 +84,13 @@ export default function Tendencies() {
       setMacdHist(null);
       setMacdSign(null);
     } finally {
-      setLoading(false);
     }
   }
 
   useEffect(() => {
     load(SYMBOL);
+    const id = window.setInterval(() => load(SYMBOL), 60 * 60 * 1000);
+    return () => window.clearInterval(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -130,9 +130,7 @@ export default function Tendencies() {
   return (
     <div className="tendencies-metrics-panel">
       <section className="tendencies-toolbar">
-        <button className="btn" onClick={() => load(SYMBOL)} disabled={loading}>
-          {loading ? "Cargando…" : "Obtener métricas"}
-        </button>
+        <h3 className="group-title">Tendencias</h3>
       </section>
 
       {error && <p style={{ color: "crimson", marginBottom: 12 }}>{error}</p>}

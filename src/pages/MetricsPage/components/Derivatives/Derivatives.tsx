@@ -87,6 +87,8 @@ export default function Derivatives() {
 
   useEffect(() => {
     load(SYMBOL);
+    const id = window.setInterval(() => load(SYMBOL), 60 * 60 * 1000);
+    return () => window.clearInterval(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -112,9 +114,7 @@ export default function Derivatives() {
   return (
     <div className="tendencies-metrics-panel">
       <section className="tendencies-toolbar">
-        <button className="btn" onClick={() => load(SYMBOL)} disabled={loading}>
-          {loading ? "Cargando…" : "Obtener métricas"}
-        </button>
+        <h3 className="group-title">Derivados</h3>
       </section>
 
       {error && <p style={{ color: "crimson", marginBottom: 12 }}>{error}</p>}

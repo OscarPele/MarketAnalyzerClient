@@ -4,12 +4,19 @@ body,
   height: 100%;
 }
 
+html {
+  /* Asegura que el viewport no haga rebote vertical en el tope */
+  overscroll-behavior-y: none;
+}
+
 body {
   margin: 0;
   background: #eff2f7;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: #0f172a;
   overflow-x: hidden;
+  /* Evitar el rebote/overscroll que separa el header del tope */
+  overscroll-behavior-y: none;
 }
 
 .app-shell {
